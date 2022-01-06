@@ -1,0 +1,26 @@
+.post{
+    cursor: pointer;
+    margin: 0 auto;
+    border-radius: 10%;
+    flex-wrap: wrap;
+    background-color: lightcyan;
+}
+
+.image-profil{
+    object-fit:contain;
+    width: 4rem;
+    height: 4rem;
+    border-radius: 100%;
+    border: 2px solid #666
+}
+.image-post{
+    width: 90%;
+    height: 10rem;
+    border-radius: 10%;
+}
+.header{
+    display: inline-flex;
+}
+.nom-profil{
+    margin-left: 0.5rem;
+}

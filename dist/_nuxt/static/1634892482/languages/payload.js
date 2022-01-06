@@ -1,0 +1,1 @@
+__NUXT_JSONP__("/languages", {data:[{}],fetch:{},mutations:[]});

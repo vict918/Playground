@@ -1,0 +1,30 @@
+.container_filter {
+    margin: 0;
+
+    .title {
+        @include margin_10_20;
+    }
+    .filter_state {
+        display: flex;
+        @include margin_10_20;
+    
+        .container_select_state {
+            @include margin_10_20
+        }
+        .container_select_industry {
+            @include margin_10_20
+        }
+    }
+}
+
+
+.container_companies_list {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    column-gap: 20px;
+    @include margin_10_20;
+
+    .item_company {
+        @include margin_10_20
+    }
+}
