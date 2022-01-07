@@ -31,6 +31,8 @@
             <div class="item_company" v-for="(company, index) in triNameAsc" :key="company.name+index">
                 <h3>Name: {{company.name}}</h3>
                 <h4>{{company.date}}</h4>
+                <p>{{company.state}}</p>
+                <p>{{company.industry}}</p>
             </div>
         </div>
     </div>
@@ -60,43 +62,60 @@
 
         methods:{
             /*
-            * Filtre la liste des compagnies sur base de leur états : true/false
-            * Si pas d'états sélectionés, renvoie la liste complète des companies
+            * Filtre la liste des compagnies sur base :
+            * de leur états : true/false
+            * de leur industries : industries []
             */
             filter(){ 
-                if(this.selectedState !== this.lastState){
+                this.filteredSearch = this.companies
 
-                    if(this.selectedState === ""){
-                        this.filteredSearch = this.companies
-                    }
-
-                    else{
-                        this.filteredSearch = this.companies
-                        this.filteredSearch = this.filteredSearch.filter(company => {
-                            return company.state == this.selectedState
-                        })
-                    }
-                    this.lastState = this.selectedState    
-                }
-                
-                else if(this.selectedIndustry !== this.lastIndustry){
+                if(this.selectedState === ""){
                     
                     if(this.selectedIndustry === ""){
                         this.filteredSearch = this.companies
                     }
-
                     else{
-                        this.filteredSearch = this.companies
                         this.filteredSearch = this.filteredSearch.filter(company => {
                             return company.industry == this.selectedIndustry
                         })
                     }
-                    this.lastIndutry = this.selectedIndutry  
                 }
-                else {
-                    this.filteredSearch = this.companies
+
+                else if(this.selectedState == true){
+
+                    if(this.selectedIndustry === ""){
+                        this.filteredSearch = this.filteredSearch.filter(company => {
+                            return company.state == this.selectedState
+                        })
+                    }
+                    else{
+                        this.filteredSearch = this.filteredSearch.filter(company => {
+                            return company.state == this.selectedState
+                        })
+                        this.filteredSearch = this.filteredSearch.filter(company => {
+                            return company.industry == this.selectedIndustry
+                        })
+                    }
                 }
-            },
+                
+
+                else if(this.selectedState == false){
+
+                    if(this.selectedIndustry === ""){
+                        this.filteredSearch = this.filteredSearch.filter(company => {
+                            return company.state == this.selectedState
+                        })
+                    }
+                    else{
+                        this.filteredSearch = this.filteredSearch.filter(company => {
+                            return company.state == this.selectedState
+                        })
+                        this.filteredSearch = this.filteredSearch.filter(company => {
+                            return company.industry == this.selectedIndustry
+                        })
+                    }
+                }    
+            }
         },
         computed: {
             /*
@@ -105,7 +124,7 @@
             */
             triNameAsc(){
                 return this.filteredSearch.sort((a,b)=>(a.name < b.name)? -1 : ((a.name > b.name) ? 1 : 0)).slice(0,12)
-            },
+            }
         }
     }
 </script>
