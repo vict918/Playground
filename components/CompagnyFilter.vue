@@ -5,7 +5,7 @@
             <div class="filter_state">
                 <div class="container_select_state">
                     <h3 class="filter_state_title">State</h3>
-                    <select class="select_state" v-model="selectedState" @change="filter()">
+                    <select class="select_state" v-model="selectedState" @change="filter2()">
                         <option value="">All State</option>
                         <option v-bind:value="true">Completed</option>
                         <option v-bind:value="false">Uncompleted</option>
@@ -13,9 +13,9 @@
                 </div>
                 <div class="container_select_industry">
                     <h3 class="filter_maturity_title">Industry</h3>
-                    <select class="select_industry" v-model="selectedIndustry" @change="filter()">
+                    <select class="select_industry" v-model="selectedIndustry" @change="filter2()">
                         <option value="">All Industry</option>
-                        <option 
+                        <option
                         v-for="industry in industries"
                         :key="industry"
                         >{{industry}}</option>
@@ -28,7 +28,7 @@
         <div v-if="filteredSearch.length == 0">Aucun résultat</div>
 
         <div class="container_companies_list">
-            <div class="item_company" v-for="(company, index) in triNameAsc" :key="company.name+index">
+            <div class="item_company" v-for="(company, index) in filteredSearch" :key="company.name+index">
                 <h3>Name: {{company.name}}</h3>
                 <h4>{{company.date}}</h4>
                 <p>{{company.state}}</p>
@@ -66,11 +66,26 @@
             * de leur états : true/false
             * de leur industries : industries []
             */
-            filter(){ 
+            filter2(){
+              this.filteredSearch = this.companies;
+
+              if(this.selectedState !== ""){
+                this.filteredSearch = this.filteredSearch.filter(company => {
+                    return company.state == this.selectedState
+                })
+              }
+
+              if(this.selectedIndustry !== ""){
+                this.filteredSearch = this.filteredSearch.filter(company => {
+                    return company.industry == this.selectedIndustry
+                })
+              }
+            },
+            filter(){
                 this.filteredSearch = this.companies
 
                 if(this.selectedState === ""){
-                    
+
                     if(this.selectedIndustry === ""){
                         this.filteredSearch = this.companies
                     }
@@ -97,7 +112,7 @@
                         })
                     }
                 }
-                
+
 
                 else if(this.selectedState == false){
 
@@ -114,7 +129,7 @@
                             return company.industry == this.selectedIndustry
                         })
                     }
-                }    
+                }
             }
         },
         computed: {
