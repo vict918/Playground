@@ -5,7 +5,7 @@
             <div class="filter_state">
                 <div class="container_select_state">
                     <h3 class="filter_state_title">State</h3>
-                    <select class="select_state" v-model="selectedState" @change="filter2()">
+                    <select class="select_state" v-model="selectedState" @change="filter()">
                         <option value="">All State</option>
                         <option v-bind:value="true">Completed</option>
                         <option v-bind:value="false">Uncompleted</option>
@@ -13,7 +13,7 @@
                 </div>
                 <div class="container_select_industry">
                     <h3 class="filter_maturity_title">Industry</h3>
-                    <select class="select_industry" v-model="selectedIndustry" @change="filter2()">
+                    <select class="select_industry" v-model="selectedIndustry" @change="filter()">
                         <option value="">All Industry</option>
                         <option
                         v-for="industry in industries"
@@ -49,9 +49,7 @@
                     "Aerospace","Transport","Computer","Telecommunication","Agriculture","Construction","Education","Pharmaceutical","Food","Health care","Hospitality","Entertainment","News Media","Energy", "Manufacturing", "Music", "Mining","Worldwide web", "Electronics"
                 ],
                 selectedState: "",
-                lastState: "",
-                selectedIndustry: "",
-                lastIndustry: ""
+                selectedIndustry: ""
             }
         },
 
@@ -66,7 +64,7 @@
             * de leur états : true/false
             * de leur industries : industries []
             */
-            filter2(){
+            filter(){
               this.filteredSearch = this.companies;
 
               if(this.selectedState !== ""){
@@ -80,56 +78,6 @@
                     return company.industry == this.selectedIndustry
                 })
               }
-            },
-            filter(){
-                this.filteredSearch = this.companies
-
-                if(this.selectedState === ""){
-
-                    if(this.selectedIndustry === ""){
-                        this.filteredSearch = this.companies
-                    }
-                    else{
-                        this.filteredSearch = this.filteredSearch.filter(company => {
-                            return company.industry == this.selectedIndustry
-                        })
-                    }
-                }
-
-                else if(this.selectedState == true){
-
-                    if(this.selectedIndustry === ""){
-                        this.filteredSearch = this.filteredSearch.filter(company => {
-                            return company.state == this.selectedState
-                        })
-                    }
-                    else{
-                        this.filteredSearch = this.filteredSearch.filter(company => {
-                            return company.state == this.selectedState
-                        })
-                        this.filteredSearch = this.filteredSearch.filter(company => {
-                            return company.industry == this.selectedIndustry
-                        })
-                    }
-                }
-
-
-                else if(this.selectedState == false){
-
-                    if(this.selectedIndustry === ""){
-                        this.filteredSearch = this.filteredSearch.filter(company => {
-                            return company.state == this.selectedState
-                        })
-                    }
-                    else{
-                        this.filteredSearch = this.filteredSearch.filter(company => {
-                            return company.state == this.selectedState
-                        })
-                        this.filteredSearch = this.filteredSearch.filter(company => {
-                            return company.industry == this.selectedIndustry
-                        })
-                    }
-                }
             }
         },
         computed: {
